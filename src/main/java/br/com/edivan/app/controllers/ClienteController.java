@@ -17,42 +17,42 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
-import br.com.edivan.app.dto.TecnicoDto;
-import br.com.edivan.app.model.Tecnico;
-import br.com.edivan.app.service.TecnicoService;
+import br.com.edivan.app.dto.ClienteDto;
+import br.com.edivan.app.model.Cliente;
+import br.com.edivan.app.service.ClienteService;
 
 @RestController
-@RequestMapping("tecnico")
-public class TecnicoController {
+@RequestMapping("cliente")
+public class ClienteController {
 	
 	@Autowired
-	private TecnicoService tecnicoService;
+	private ClienteService clienteService;
 
 	@GetMapping("/{id}")
-	public ResponseEntity<TecnicoDto> findById(@PathVariable Long id){
-		return ResponseEntity.ok().body(new TecnicoDto(tecnicoService.findById(id)));
+	public ResponseEntity<ClienteDto> findById(@PathVariable Long id){
+		return ResponseEntity.ok().body(new ClienteDto(clienteService.findById(id)));
 	}
 	
 	@GetMapping
-	public ResponseEntity<List<TecnicoDto>> findAll(){
-		List<TecnicoDto> listDto = tecnicoService.findAll()
-				.stream().map(tec -> new TecnicoDto(tec))
+	public ResponseEntity<List<ClienteDto>> findAll(){
+		List<ClienteDto> listDto = clienteService.findAll()
+				.stream().map(tec -> new ClienteDto(tec))
 				.collect(Collectors.toList());
 		return ResponseEntity.ok().body(listDto);
 	}
 	
 	@PostMapping
-	public ResponseEntity<TecnicoDto> create(@RequestBody @Valid TecnicoDto dto){
-		Tecnico tecnico = tecnicoService.create(dto);
+	public ResponseEntity<ClienteDto> create(@RequestBody @Valid ClienteDto dto){
+		Cliente tecnico = clienteService.create(dto);
 		URI uri = ServletUriComponentsBuilder
 				.fromCurrentRequest().path("/{id}")
 				.buildAndExpand(tecnico.getId()).toUri();
-		return ResponseEntity.created(uri).body(new TecnicoDto(tecnico));
+		return ResponseEntity.created(uri).body(new ClienteDto(tecnico));
 	}
 	
 	@DeleteMapping("/{id}")
 	public ResponseEntity<Void> delete(@PathVariable Long id){
-		tecnicoService.delete(id);
+		clienteService.delete(id);
 		return ResponseEntity.noContent().build();
 	}
 }

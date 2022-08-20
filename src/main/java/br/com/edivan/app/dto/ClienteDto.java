@@ -5,27 +5,25 @@ import java.io.Serializable;
 import br.com.edivan.app.model.Pessoa;
 import br.com.edivan.app.model.PessoaDto;
 
-public class TecnicoDto extends PessoaDto implements Serializable {
-
+public class ClienteDto extends PessoaDto implements Serializable{
 	
-
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
 
-	
-
-	public TecnicoDto(Pessoa pessoa) {
-		super(pessoa);
-	}
-
-
-
-	public TecnicoDto() {
+	public ClienteDto() {
 		super();
 	}
 
+	public ClienteDto(Pessoa pessoa) {
+		super(pessoa);
+	}
+
+	
+	
+	
+	
 	
 
 }
