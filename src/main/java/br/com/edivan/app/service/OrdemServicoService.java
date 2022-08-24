@@ -16,15 +16,14 @@ import br.com.edivan.app.service.util.OrdemServicoUtil;
 @Service
 public class OrdemServicoService {
 
-
 	@Autowired
 	private OrdemServicoRepository ordemServicoRepository;
 	@Autowired
 	private OrdemServicoUtil ordemServicoUtil;
-	
+
 	public OrdemServico findById(Long id) {
-		return ordemServicoRepository.findById(id).orElseThrow(
-				() -> new ObjectNotFoundException("Objeto não encontrado"));
+		return ordemServicoRepository.findById(id)
+				.orElseThrow(() -> new ObjectNotFoundException("Objeto não encontrado"));
 	}
 
 	public List<OrdemServico> findAll() {
@@ -35,5 +34,11 @@ public class OrdemServicoService {
 	public OrdemServico create(OrdemServicoDto dto) {
 		return ordemServicoRepository.save(ordemServicoUtil.toOrdemServico(dto));
 	}
-	
+
+	@Transactional
+	public OrdemServico update(OrdemServicoDto dto) {
+		OrdemServico servico = this.findById(dto.getId());
+		return ordemServicoUtil.atualizar(servico, dto);
+	}
+
 }
